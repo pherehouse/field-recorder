@@ -1,134 +1,136 @@
 # Field Recorder
 
-> Obsidian 录音插件，带波形可视化、音质设置和设备选择。基于 Don McCurdy 的 [obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder) v1.0.0 修改。
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
+> An Obsidian audio recorder plugin with waveform visualization, quality settings, and input device selection. Modified from Don McCurdy's [obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder) v1.0.0.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Obsidian](https://img.shields.io/badge/Obsidian-1.11.4+-7C3AED.svg)](https://obsidian.md)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux%20%7C%20iOS-blue.svg)]()
 
-## ✨ 功能特性
+## ✨ Features
 
-- 🎙️ **录音**：浏览器原生 MediaRecorder API，支持 m4a / webm 格式
-- 📊 **实时波形可视化**：基于 Web Audio API AnalyserNode 的频谱显示
-- 🎚️ **音质设置**：比特率可选（32–320 kb/s），输入增益可调
-- 🔇 **降噪选项**：自动增益控制、噪声抑制、人声隔离
-- 📁 **统一存储**：录音文件自动保存到 vault 根下的 `audioRecords/` 文件夹
-- 🕐 **时间戳命名**：默认 `YYYY-MM-DD HH-MM-SS Recording`，每次新录音用新名字
-- 🔗 **自动插入链接**：录音链接 `![[xxx.m4a]]` 自动插入到当前笔记光标处
-- ⏯️ **暂停 / 恢复**：录音过程中可暂停，恢复后继续同一次录音
+- 🎙️ **Recording** — Native MediaRecorder API, supports m4a / webm formats
+- 📊 **Real-time waveform visualization** — Spectrum display via Web Audio API AnalyserNode
+- 🎚️ **Quality settings** — Bitrate options (32–320 kb/s), adjustable input gain
+- 🔇 **Noise reduction** — Auto gain control, noise suppression, voice isolation
+- 📁 **Unified storage** — Audio files auto-saved to `audioRecords/` at the vault root
+- 🕐 **Timestamped filenames** — Default `YYYY-MM-DD HH-MM-SS Recording`, fresh name per take
+- 🔗 **Auto-insert link** — `![[xxx.m4a]]` link auto-inserted at the cursor in the active note
+- ⏯️ **Pause / Resume** — Pause mid-recording and resume the same take
 
-## 📦 安装
+## 📦 Installation
 
-### 方式一：手动安装（推荐）
+### Option 1: Manual install (recommended)
 
-1. 下载 [最新 release](https://github.com/pherehouse/field-recorder/releases) 的 `main.js`、`manifest.json`、`styles.css` 三个文件
-2. 在你的 Obsidian vault 中找到插件目录：`<vault>/.obsidian/plugins/`
-3. 新建文件夹 `field-recorder`，把三个文件放进去
-4. 打开 Obsidian → 设置 → 第三方插件 → 关闭"安全模式"
-5. 在插件列表中找到 "Field Recorder" 并启用
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/pherehouse/field-recorder/releases)
+2. In your Obsidian vault, navigate to the plugins folder: `<vault>/.obsidian/plugins/`
+3. Create a folder named `field-recorder` and place the three files inside
+4. Open Obsidian → Settings → Community plugins → disable "Safe Mode"
+5. Find "Field Recorder" in the plugin list and enable it
 
-### 方式二：从源码构建（可选）
+### Option 2: Build from source (optional)
 
 ```bash
 git clone https://github.com/pherehouse/field-recorder.git
 cd field-recorder
-# 本仓库只包含打包产物，如需从上游源码构建请前往原项目：
+# This repo only ships the bundled output. To build from upstream source:
 # https://github.com/donmccurdy/obsidian-field-recorder
 ```
 
-## 🚀 使用方法
+## 🚀 Usage
 
-### 基本录音流程
+### Basic recording flow
 
-1. **打开面板**：点击左侧 ribbon 栏的麦克风图标，或执行命令 `Field Recorder: Open`
-2. **选择输入设备**（可选）：在面板顶部的 "Input" 下拉框选择麦克风
-3. **调整音质**（可选）：设置格式、比特率、增益、降噪等
-4. **开始录音**：点击红色圆点按钮 ●
-5. **暂停 / 停止**：点击 ⏸ 暂停，点击 ⬛ 停止并保存
-6. **自动保存**：录音文件保存到 `<vault>/audioRecords/`，链接自动插入到当前笔记
+1. **Open the panel** — Click the microphone icon in the left ribbon, or run the command `Field Recorder: Open`
+2. **Select input device** (optional) — Choose a mic from the "Input" dropdown at the top of the panel
+3. **Adjust quality** (optional) — Set format, bitrate, gain, and noise reduction
+4. **Start recording** — Click the red ● button
+5. **Pause / Stop** — Click ⏸ to pause, ⬛ to stop and save
+6. **Auto-save** — File is saved to `<vault>/audioRecords/`, and the link is inserted into the active note
 
-### 文件名和文件夹
+### Filename and folder
 
-- **默认文件名**：`YYYY-MM-DD HH-MM-SS Recording`（如 `2026-07-02 14-30-05 Recording.m4a`）
-- **自定义文件名**：在面板顶部的输入框填写，留空则用时间戳
-- **自定义文件夹**：在面板的文件夹输入框填写，或点击 📁 按钮从已有文件夹中选择
-- **每次打开面板会重置**：文件名清空、文件夹回到 `audioRecords`，避免复用上次的设置
+- **Default filename**: `YYYY-MM-DD HH-MM-SS Recording` (e.g. `2026-07-02 14-30-05 Recording.m4a`)
+- **Custom filename**: Type in the input box at the top of the panel; leave blank to use the timestamp
+- **Custom folder**: Type in the folder input box, or click the 📁 button to pick from existing folders
+- **Reset on every open**: Each time the panel is opened, filename clears and folder resets to `audioRecords`, preventing reuse of previous settings
 
-### 录音文件位置
+### File layout
 
 ```
 <vault>/
-├── audioRecords/                    ← 默认录音文件夹（自动创建）
+├── audioRecords/                    ← default recording folder (auto-created)
 │   ├── 2026-07-02 14-30-05 Recording.m4a
 │   └── 2026-07-02 15-12-33 Recording.m4a
-└── 笔记.md                          ← 录音链接会插到这里的当前光标位置
+└── Note.md                          ← recording link is inserted here at the cursor
 ```
 
-### 快捷命令
+### Commands
 
-| 命令 | 说明 |
+| Command | Description |
 |---|---|
-| `Field Recorder: Open` | 打开侧边面板 |
-| `Field Recorder: Close` | 关闭侧边面板 |
-| `Field Recorder: Start recording audio` | 开始录音 |
-| `Field Recorder: Pause recording audio` | 暂停录音 |
-| `Field Recorder: Stop recording audio` | 停止并保存 |
+| `Field Recorder: Open` | Open the side panel |
+| `Field Recorder: Close` | Close the side panel |
+| `Field Recorder: Start recording audio` | Start recording |
+| `Field Recorder: Pause recording audio` | Pause recording |
+| `Field Recorder: Stop recording audio` | Stop and save |
 
-## 🔧 技术栈
+## 🔧 Tech Stack
 
-| 技术 | 用途 |
+| Technology | Purpose |
 |---|---|
-| [TypeScript](https://www.typescriptlang.org/) | 源码语言（上游项目） |
-| [esbuild](https://esbuild.github.io/) | 打包工具，输出 minified 单文件 `main.js` |
-| [Obsidian Plugin API](https://github.com/obsidianmd/obsidian-api) | 插件接口（`Plugin`、`ItemView`、`Vault`、`Workspace` 等） |
-| [Preact Signals](https://preactjs.com/guide/v10/signals) | 响应式状态管理（minified 后内联进 main.js） |
-| [Web Audio API](https://developer.mozilla.org/docs/Web/API/Web_Audio_API) | 音频图构建（`AudioContext`、`MediaStreamSource`、`AnalyserNode`、`GainNode`） |
-| [MediaRecorder API](https://developer.mozilla.org/docs/Web/API/MediaRecorder) | 浏览器原生录音接口 |
-| [Canvas 2D](https://developer.mozilla.org/docs/Web/API/Canvas_API) | 波形可视化绘制 |
-| Node.js | 测试运行环境（`tests/` 目录） |
+| [TypeScript](https://www.typescriptlang.org/) | Source language (upstream) |
+| [esbuild](https://esbuild.github.io/) | Bundler, outputs minified single-file `main.js` |
+| [Obsidian Plugin API](https://github.com/obsidianmd/obsidian-api) | Plugin interface (`Plugin`, `ItemView`, `Vault`, `Workspace`, etc.) |
+| [Preact Signals](https://preactjs.com/guide/v10/signals) | Reactive state management (inlined into main.js after minification) |
+| [Web Audio API](https://developer.mozilla.org/docs/Web/API/Web_Audio_API) | Audio graph (`AudioContext`, `MediaStreamSource`, `AnalyserNode`, `GainNode`) |
+| [MediaRecorder API](https://developer.mozilla.org/docs/Web/API/MediaRecorder) | Native browser recording interface |
+| [Canvas 2D](https://developer.mozilla.org/docs/Web/API/Canvas_API) | Waveform rendering |
+| Node.js | Test runtime (`tests/` directory) |
 
-### 支持的音频格式
+### Supported audio formats
 
-| MIME 类型 | 扩展名 | 备注 |
+| MIME type | Extension | Notes |
 |---|---|---|
-| `audio/mp4` | `.m4a` | 默认格式（iOS / macOS / Windows 通用） |
-| `audio/webm;codecs=opus` | `.webm` | Android / Linux 推荐 |
-| `audio/webm;codecs=pcm` | `.webm` | 无损 WebM |
+| `audio/mp4` | `.m4a` | Default (universal on iOS / macOS / Windows) |
+| `audio/webm;codecs=opus` | `.webm` | Recommended on Android / Linux |
+| `audio/webm;codecs=pcm` | `.webm` | Lossless WebM |
 
-格式可用性取决于浏览器/Obsidian 运行时支持，插件会自动检测。
+Format availability depends on the Obsidian runtime; the plugin auto-detects supported formats.
 
-## 📝 本修改版相对原版的改动
+## 📝 Changes vs. upstream
 
-| 改动点 | 原版 | 本版 |
+| Change | Upstream | This fork |
 |---|---|---|
-| 默认保存文件夹 | 空（fallback 到当前笔记的父文件夹） | `audioRecords`（vault 根下） |
-| 文件夹自动创建 | 无 | 插件加载时自动创建 `audioRecords` |
-| 面板打开时的默认值 | 保留上次设置 | 重置为空文件名 + `audioRecords` 文件夹 |
-| 文件名 | `YYYY-MM-DD HH-MM-SS Recording` | 不变（每次新时间戳） |
+| Default save folder | Empty (falls back to active note's parent folder) | `audioRecords` (at vault root) |
+| Auto-create folder | No | Auto-creates `audioRecords` on plugin load |
+| Panel open defaults | Keeps previous settings | Resets to empty filename + `audioRecords` folder |
+| Filename | `YYYY-MM-DD HH-MM-SS Recording` | Unchanged (fresh timestamp each take) |
 
-改动直接在 minified 的 `main.js` 上进行，详见 [改动说明](#)。
+Changes are applied directly to the minified `main.js`.
 
-## 🙏 鸣谢
+## 🙏 Acknowledgements
 
-本项目是 Don McCurdy 的 [obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder) 的修改版，所有核心功能（录音、波形、设备管理、设置面板）均来自原作者。
+This project is a modified fork of Don McCurdy's [obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder). All core functionality (recording, waveform, device management, settings UI) comes from the original author.
 
-- **原作者**：[Don McCurdy](https://www.donmccurdy.com/)
-- **原项目**：https://github.com/donmccurdy/obsidian-field-recorder
-- **原协议**：MIT
+- **Original author**: [Don McCurdy](https://www.donmccurdy.com/)
+- **Upstream project**: https://github.com/donmccurdy/obsidian-field-recorder
+- **License**: MIT
 
 ## 📄 License
 
-继承原项目 [MIT License](https://opensource.org/licenses/MIT)。
+Inherits the upstream [MIT License](https://opensource.org/licenses/MIT).
 
-## 🔗 相关链接
+## 🔗 Related Links
 
-- [Obsidian](https://obsidian.md/) — 一个基于本地 Markdown 文件的知识管理工具
+- [Obsidian](https://obsidian.md/) — A local-Markdown-based knowledge management tool
 - [Obsidian Plugin API](https://github.com/obsidianmd/obsidian-api)
-- [原项目 obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder)
+- [Upstream: obsidian-field-recorder](https://github.com/donmccurdy/obsidian-field-recorder)
 
-## ⚠️ 注意事项
+## ⚠️ Notes
 
-- 本仓库只包含打包后的 `main.js`（minified 单行），不含 TypeScript 源码
-- 修改在 minified 产物上直接进行，编辑需谨慎
-- 如需从源码深度定制，请前往原项目
-- 问题反馈：[GitHub Issues](https://github.com/pherehouse/field-recorder/issues)
+- This repo ships only the bundled `main.js` (minified single line); TypeScript source is not included
+- Edits are made directly on the minified output — proceed with care
+- For deep source-level customization, please go to the upstream project
+- Feedback: [GitHub Issues](https://github.com/pherehouse/field-recorder/issues)
