@@ -16,6 +16,7 @@
 - 🔇 **降噪选项**：自动增益控制、噪声抑制、人声隔离
 - 📁 **统一存储**：录音文件自动保存到 vault 根下的 `audioRecords/` 文件夹
 - 🕐 **时间戳命名**：默认 `YYYY-MM-DD HH-MM-SS Recording`，每次新录音用新名字
+- ✏️ **自定义文件名**：在输入框填写文件名，留空则自动用时间戳
 - 🔗 **自动插入链接**：录音链接 `![[xxx.m4a]]` 自动插入到当前笔记光标处
 - ⏯️ **暂停 / 恢复**：录音过程中可暂停，恢复后继续同一次录音
 
@@ -106,7 +107,7 @@ cd field-recorder
 | 默认保存文件夹 | 空（fallback 到当前笔记的父文件夹） | `audioRecords`（vault 根下） |
 | 文件夹自动创建 | 无 | 插件加载时自动创建 `audioRecords` |
 | 面板打开时的默认值 | 保留上次设置 | 重置为空文件名 + `audioRecords` 文件夹 |
-| 文件名 | `YYYY-MM-DD HH-MM-SS Recording` | 不变（每次新时间戳） |
+| 文件名 | `YYYY-MM-DD HH-MM-SS Recording` | 支持自定义（留空则回退到时间戳） |
 
 改动直接在 minified 的 `main.js` 上进行。
 

@@ -16,6 +16,7 @@
 - 🔇 **Noise reduction** — Auto gain control, noise suppression, voice isolation
 - 📁 **Unified storage** — Audio files auto-saved to `audioRecords/` at the vault root
 - 🕐 **Timestamped filenames** — Default `YYYY-MM-DD HH-MM-SS Recording`, fresh name per take
+- ✏️ **Custom filename** — Type your own filename in the input box; leave blank to fall back to the timestamp
 - 🔗 **Auto-insert link** — `![[xxx.m4a]]` link auto-inserted at the cursor in the active note
 - ⏯️ **Pause / Resume** — Pause mid-recording and resume the same take
 
@@ -106,7 +107,7 @@ Format availability depends on the Obsidian runtime; the plugin auto-detects sup
 | Default save folder | Empty (falls back to active note's parent folder) | `audioRecords` (at vault root) |
 | Auto-create folder | No | Auto-creates `audioRecords` on plugin load |
 | Panel open defaults | Keeps previous settings | Resets to empty filename + `audioRecords` folder |
-| Filename | `YYYY-MM-DD HH-MM-SS Recording` | Unchanged (fresh timestamp each take) |
+| Filename | `YYYY-MM-DD HH-MM-SS Recording` | User-customizable (falls back to timestamp when blank) |
 
 Changes are applied directly to the minified `main.js`.
 
